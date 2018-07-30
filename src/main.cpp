@@ -8,6 +8,12 @@
 #include "Eigen-3.3/Eigen/Core"
 #include "Eigen-3.3/Eigen/QR"
 #include "json.hpp"
+#include "helper_functions.cpp"
+
+#define MAX_ACCELERATION 10 // m/s^2
+#define MAX_JERK         50 // m/s^3
+#define MAX_SPEED_LIMIT  50 // mph
+
 
 using namespace std;
 
@@ -242,9 +248,34 @@ int main() {
           	vector<double> next_x_vals;
           	vector<double> next_y_vals;
 
+            /*********************************************************************************/
+          	// TODO: add logic here for calculating trajectory along the track
+            // TODO: straight line
+            // TODO: follow lane
+            // TODO: follow lane and avoid car
+            // TODO: change lane if car ahead
 
-          	// TODO: define a path made up of (x,y) points that the car will visit sequentially every .02 seconds
-          	msgJson["next_x"] = next_x_vals;
+            // TODO: define a path made up of (x,y) points that the car will visit sequentially every .02 seconds
+          	double dist_inc = 0.5;
+            for(int i=0; i<50; i++)
+            {
+              next_x_vals.push_back(car_x+(dist_inc*i)*cos(deg2rad(car_yaw)));
+              next_y_vals.push_back(car_y+(dist_inc*i)*sin(deg2rad(car_yaw)));
+            }
+            
+            // Print out the current Freenet coordinate.
+            std::cout << "Current s: " << car_s << ", current d: " << car_d << std::endl;
+
+
+
+
+
+
+
+
+            /*********************************************************************************/
+
+            msgJson["next_x"] = next_x_vals;
           	msgJson["next_y"] = next_y_vals;
 
           	auto msg = "42[\"control\","+ msgJson.dump()+"]";
