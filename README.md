@@ -1,5 +1,4 @@
-# CarND-Path-Planning-Project
-Self-Driving Car Engineer Nanodegree Program
+# CarND Path Planning Project
 
 ## Goals
 The goal of this project was to explore implementing a cost function to allow your vehicle to safely, and efficiently, navigate a highway simulation with other vehicles on the road using a combination of localization data of the your position and the position of cars around you, and a set of waypoints defining the center of the highway all around the map. Using both real world and Frenet coordinates, the goal is to program the car to safely drive around the map while maintaining lane center, unless changing lanes, and without colliding with any surrounding vehicles. Restrictions are defined that limit the maximium acceleration (10m/s^2) and jerk (10m/s^3) as to provide the riders with a comfortable trip. The [rubric](https://review.udacity.com/#!/rubrics/1020/view) explains the requirements for the project.
