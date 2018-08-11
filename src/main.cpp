@@ -305,37 +305,37 @@ int main() {
 						// Lane change logic! Avoid potential collisons.
 						if (too_close)
 						{
-							// if (lane == 0)
-							// { // Logic for lane 1.
-							// 	if (cars_lane_center.size() == 0)
-							// 	{
-							// 		lane = 1;
-							// 	} else
-							// 	{
-							// 		ref_vel -= 0.224;
-							// 	}
-							// } else if (lane == 1)
-							// { // Logic for lane 2.
-							// 	if (cars_lane_left.size() == 0)
-							// 	{
-							// 		lane = 0;
-							// 	} else if (cars_lane_right.size() == 0)
-							// 	{
-							// 		lane = 2;
-							// 	} else
-							// 	{
-							// 		ref_vel -= 0.224;
-							// 	}
-							// } else 
-							// { // Logic for lane 3.
-							// 	if (cars_lane_center.size() == 0)
-							// 	{
-							// 		lane = 1;
-							// 	} else
-							// 	{
-							// 		ref_vel -= 0.224;
-							// 	}
-							// }
+							if (lane == 0)
+							{ // Logic for lane 1.
+								if (cars_lane_center.size() == 0)
+								{
+									lane = 1;
+								} else
+								{
+									ref_vel -= 0.224;
+								}
+							} else if (lane == 1)
+							{ // Logic for lane 2.
+								if (cars_lane_left.size() == 0)
+								{
+									lane = 0;
+								} else if (cars_lane_right.size() == 0)
+								{
+									lane = 2;
+								} else
+								{
+									ref_vel -= 0.224;
+								}
+							} else 
+							{ // Logic for lane 3.
+								if (cars_lane_center.size() == 0)
+								{
+									lane = 1;
+								} else
+								{
+									ref_vel -= 0.224;
+								}
+							}
 							ref_vel -= 0.224;
 						} else if (ref_vel < 49.5)
 						{
