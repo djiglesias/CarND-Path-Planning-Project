@@ -14,6 +14,10 @@ View the project outline and how to download and bringup the source code from th
 ## Lane Keep Assist
 The first step of the project was to get the car to drive forward and follow the lane on the road without breaking the rules of the project such as acceleration, jerk, and max speed limit. Thankfully the course provides a detailed tutorial for this section and demonstrates how to calculate a vector of waypoints...
 
+- if empty then populate
+- take next three closest points and add to vector
+- passed these points to the spline function
+
 ## Adjust Speed with Lead
 
 <p align="center">
