@@ -23,5 +23,5 @@ The first step of the project was to get the car to drive forward and follow the
 ## Cost Function
 
 <p align="center">
- <img src="./res/lane_change.gif">
+ <img src="./res/lane_change.gif" width=550>
 </p>
