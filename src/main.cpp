@@ -210,7 +210,7 @@ int main() {
 	int lane = 1;
 
 	// Set target reference velocity.
-	double ref_vel = 0.0; // mph
+	double ref_vel = 49.5; // mph
 
   h.onMessage([&lane, &ref_vel, &map_waypoints_x,&map_waypoints_y,&map_waypoints_s,&map_waypoints_dx,&map_waypoints_dy](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length,
                      uWS::OpCode opCode) {
@@ -229,7 +229,6 @@ int main() {
         string event = j[0].get<string>();
         
         if (event == "telemetry") {
-          // j[1] is the data JSON object
           
         	// Main car's localization Data
           	double car_x = j[1]["x"];
@@ -254,10 +253,6 @@ int main() {
 
           	json msgJson;
 
-
-						/**********************************************************************************
-						 * Detect Cars in Lanes
-						 *********************************************************************************/
 						if (prev_size > 0)
 						{
 							car_s = end_path_s;
@@ -307,53 +302,46 @@ int main() {
 
 						}
 
-						// Calculate the best route to take.
-						// 1. Pass on left.
-						// 2. Pass on right.
-						// 3. Stay in lane and reduce speed.
-
-						// Potential Collison Detected.
+						// Lane change logic! Avoid potential collisons.
 						if (too_close)
 						{
-							if (lane == 0)
-							{ // Logic for lane 1.
-								if (cars_lane_center.size() == 0)
-								{
-									lane = 1;
-								} else
-								{
-									ref_vel -= 0.224;
-								}
-							} else if (lane == 1)
-							{ // Logic for lane 2.
-								if (cars_lane_left.size() == 0)
-								{
-									lane = 0;
-								} else if (cars_lane_right.size() == 0)
-								{
-									lane = 2;
-								} else
-								{
-									ref_vel -= 0.224;
-								}
-							} else 
-							{ // Logic for lane 3.
-								if (cars_lane_center.size() == 0)
-								{
-									lane = 1;
-								} else
-								{
-									ref_vel -= 0.224;
-								}
-							}
+							// if (lane == 0)
+							// { // Logic for lane 1.
+							// 	if (cars_lane_center.size() == 0)
+							// 	{
+							// 		lane = 1;
+							// 	} else
+							// 	{
+							// 		ref_vel -= 0.224;
+							// 	}
+							// } else if (lane == 1)
+							// { // Logic for lane 2.
+							// 	if (cars_lane_left.size() == 0)
+							// 	{
+							// 		lane = 0;
+							// 	} else if (cars_lane_right.size() == 0)
+							// 	{
+							// 		lane = 2;
+							// 	} else
+							// 	{
+							// 		ref_vel -= 0.224;
+							// 	}
+							// } else 
+							// { // Logic for lane 3.
+							// 	if (cars_lane_center.size() == 0)
+							// 	{
+							// 		lane = 1;
+							// 	} else
+							// 	{
+							// 		ref_vel -= 0.224;
+							// 	}
+							// }
+							ref_vel -= 0.224;
 						} else if (ref_vel < 49.5)
 						{
 							ref_vel += 0.224;
 						}
 
-						/**********************************************************************************
-						 * Lane Follow
-						 *********************************************************************************/
 						vector<double> ptsx;
 						vector<double> ptsy;
 
@@ -436,9 +424,6 @@ int main() {
 
 						double x_add_on = 0;
 
-						// TODO: move up to header.
-						#define MPH_2_MPS  2.24
-
 						// Fill up the rest of our path planner.
 						for (int i=1; i <=50-previous_path_x.size(); i++)
 						{
@@ -462,26 +447,6 @@ int main() {
 							next_y_vals.push_back(y_point);
 
 						}
-
-						/**********************************************************************************
-						 * Avoid Cars
-						 *********************************************************************************/
-						
-
-						// left off in video @ 41:35
-
-
-
-
-
-
-
-						/**********************************************************************************
-						 * Alternate Paths
-						 *********************************************************************************/
-
-
-            /*********************************************************************************/
 
             msgJson["next_x"] = next_x_vals;
           	msgJson["next_y"] = next_y_vals;
