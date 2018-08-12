@@ -12,11 +12,9 @@ View the project outline and how to download and bringup the source code from th
 4. Run it: `./path_planning`.
 
 ## Lane Keep Assist
-The first step of the project was to get the car to drive forward and follow the lane on the road without breaking the rules of the project such as acceleration, jerk, and max speed limit. Thankfully the course provides a detailed tutorial for this section and demonstrates how to calculate a vector of waypoints...
+The first step of the project was to get the car to drive forward and follow the lane on the road without breaking the rules of the project such as acceleration, jerk, and max speed limit. Thankfully the course provides a detailed [tutorial](https://www.youtube.com/watch?time_continue=1403&v=7sI3VHFPP0w) for this section that demonstrates how to get the car driving around the track while adjusting the speed to avoid in-lane collisions.
 
-- if empty then populate
-- take next three closest points and add to vector
-- passed these points to the spline function
+The helper functions provided for querying the next closest waypoint came handy for gathering the next ...
 
 <p align="center">
  <img src="./res/collision_avoidance.gif" width=550>
