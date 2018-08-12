@@ -8,7 +8,7 @@
 #include "Eigen-3.3/Eigen/Core"
 #include "Eigen-3.3/Eigen/QR"
 #include "json.hpp"
-#include "helper_functions.cpp"
+#include "spline.h"
 
 #define MAX_ACCEL  10 // m/s^2
 #define MAX_JERK   50 // m/s^3
@@ -210,7 +210,7 @@ int main() {
 	int lane = 1;
 
 	// Set target reference velocity.
-	double ref_vel = 49.5; // mph
+	double ref_vel = 0.0; // mph
 
   h.onMessage([&lane, &ref_vel, &map_waypoints_x,&map_waypoints_y,&map_waypoints_s,&map_waypoints_dx,&map_waypoints_dy](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length,
                      uWS::OpCode opCode) {
@@ -251,7 +251,7 @@ int main() {
 						
 						int prev_size = previous_path_x.size();
 
-          	json msgJson;
+          				json msgJson;
 
 						if (prev_size > 0)
 						{
@@ -336,12 +336,12 @@ int main() {
 									ref_vel -= 0.224;
 								}
 							}
-							ref_vel -= 0.224;
 						} else if (ref_vel < 49.5)
 						{
 							ref_vel += 0.224;
 						}
 
+						// Create a path for the car to follow.
 						vector<double> ptsx;
 						vector<double> ptsy;
 
@@ -357,7 +357,6 @@ int main() {
 
 							ptsx.push_back(prev_car_x);
 							ptsx.push_back(car_x);
-
 							ptsy.push_back(prev_car_y);
 							ptsy.push_back(car_y);
 
@@ -374,10 +373,8 @@ int main() {
 							// Use two points that make the path tangent to the previous path's end point.
 							ptsx.push_back(ref_x_prev);
 							ptsx.push_back(ref_x);
-
 							ptsy.push_back(ref_y_prev);
 							ptsy.push_back(ref_y);
-
 						}
 
 						// In Frenet add evenly 30m spaced points ahead of the starting reference.
@@ -409,9 +406,9 @@ int main() {
 						s.set_points(ptsx,ptsy);
 
 						vector<double> next_x_vals;
-          	vector<double> next_y_vals;
+          				vector<double> next_y_vals;
 
-						for (int i=0; i<previous_path_x.size() ; i++)
+						for (int i=0; i<previous_path_x.size(); i++)
 						{
 							next_x_vals.push_back(previous_path_x[i]);
 							next_y_vals.push_back(previous_path_y[i]);
