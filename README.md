@@ -18,6 +18,10 @@ The first step of the project was to get the car to drive forward and follow the
 - take next three closest points and add to vector
 - passed these points to the spline function
 
+<p align="center">
+ <img src="./res/collision_avoidance.gif" width=550>
+</p>
+
 ## Adjust Speed with Lead
 
 <p align="center">
